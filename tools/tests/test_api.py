@@ -11,6 +11,9 @@ class TestAPI(TestCase):
     """
 
     def setUp(self):
+        """
+        テストのセットアップ
+        """
         self.mock_devices = MagicMock()
         app.state.devices = self.mock_devices
         self.client = TestClient(app)
