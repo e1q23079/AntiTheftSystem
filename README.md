@@ -33,7 +33,47 @@
 - `SUBNET_MASK`: サブネットマスク
 - `SERVER_URL`: 監視サーバーの URL
 
-## 2. プログラムのビルドと書き込み
+## 2. M5側のプログラムの書き方
+
+M5側のプログラムは、Arduino / PlatformIO の基本構成に従って `setup()` と `loop()` で実装します。
+
+- `setup()`: デバイス起動時に1回実行される初期化処理です。
+  - `M5.begin()` で M5 デバイスを初期化します。
+  - `Serial.begin()` でシリアル通信を開始します。
+  - Wi-Fi の設定や接続を行います。
+  - `antiTheftSystem.begin()` で盗難防止システムを起動します。
+- `loop()`: 起動後に繰り返し実行される処理です。
+  - ここでは待機処理を行い、必要に応じてセンサー監視や通知処理を追加します。
+
+以下は基本的な記述例です。
+
+```cpp
+#include <AntiTheftSystem.h>
+#include <M5unified.h>
+
+#include "setting/setting.h"
+
+AntiTheftSystem antiTheftSystem(SERVER_URL);
+
+void setup() {
+    auto cfg = M5.config();
+    M5.begin(cfg);
+
+    Serial.begin(115200);
+
+    antiTheftSystem.configureWiFi(IP_ADDRESS, GATEWAY_IP, SUBNET_MASK);
+    antiTheftSystem.connectToWiFi(WIFI_SSID, WIFI_PASSWORD);
+
+    antiTheftSystem.setDebugMode(true); // デバッグモードを有効にする
+    antiTheftSystem.begin();
+}
+
+void loop() {
+    delay(1000);
+}
+```
+
+## 3. プログラムのビルドと書き込み
 
 ### M5StickC Plus / M5StickC Plus2
 
@@ -49,9 +89,9 @@
 pio run -e <デバイス名> -t upload
 ```
 
-## 3. 監視システムのセットアップ
+## 4. 監視システムのセットアップ
 
-### 3.1 環境構築
+### 4.1 環境構築
 
 監視システム用の設定ファイルは `tools/.env` です。
 
@@ -66,7 +106,7 @@ cd tools/
 python -m venv .venv
 ```
 
-### 3.2 プログラムの実行
+### 4.2 プログラムの実行
 
 Windows では、次のコマンドで仮想環境を有効化します。
 
