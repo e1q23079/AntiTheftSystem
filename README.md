@@ -121,3 +121,64 @@ python main.py
 ```
 
 実行を停止する場合は `Ctrl + C` を入力してください。
+
+## 5. APIエンドポイント
+
+<http://localhost:8000/docs>
+
+この監視システムは FastAPI で動作し、M5 デバイスからのアクセスを受けて状態を更新します。主な API は次の 2 つです。
+
+### `GET /api/v1/check`
+
+現在アクセスしてきたデバイスの IP アドレスをもとに、そのデバイスの稼働状態を `true` として更新します。M5 デバイス側から定期的に呼び出すことで、「端末が生存している」ことを監視側へ通知する用途です。
+
+返却値は次のとおりです。
+
+```json
+{
+  "status": true
+}
+```
+
+### `GET /api/v1/get/devices`
+
+登録済みデバイスの一覧を取得します。各デバイスについて、名前、IP アドレス、現在の状態、通知済みフラグを確認できます。監視画面やデバッグ時の確認に使用します。
+
+返却値の例は次のとおりです。
+
+```json
+{
+  "devices": [
+    {
+      "name": "M5StickC Plus",
+      "ip": "192.168.4.9",
+      "status": false,
+      "notified": true
+    },
+    {
+      "name": "M5StickC Plus 2",
+      "ip": "192.168.4.8",
+      "status": false,
+      "notified": true
+    },
+    {
+      "name": "M5Stick S3",
+      "ip": "192.168.4.7",
+      "status": false,
+      "notified": true
+    },
+    {
+      "name": "M5Stack S3",
+      "ip": "192.168.4.6",
+      "status": false,
+      "notified": true
+    },
+    {
+      "name": "M5Stack S3 SE",
+      "ip": "192.168.4.5",
+      "status": false,
+      "notified": true
+    }
+  ]
+}
+```
