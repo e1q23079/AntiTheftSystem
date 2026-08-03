@@ -11,4 +11,4 @@ def send_notification(title, message, webhook_url) -> bool:
     """
     data = {"content": f"**{title}**\n{message}"}
     response = requests.post(webhook_url, json=data)
-    return response.status_code != 204
+    return response.status_code == 204

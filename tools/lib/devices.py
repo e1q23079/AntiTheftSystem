@@ -46,18 +46,6 @@ class Devices:
         for device in self.devices:
             device["status"] = False
 
-    def set_device_notified(self, device_ip, notified):
-        """
-        デバイスの通知状態を設定するメソッド
-        Args:
-            device_ip (str): デバイスのIPアドレス
-            notified (bool): デバイスの通知状態
-        """
-        for device in self.devices:
-            if device["ip"] == device_ip:
-                device["notified"] = notified
-                break
-
     def get_devices(self):
         """
         デバイスのリストを取得するメソッド
