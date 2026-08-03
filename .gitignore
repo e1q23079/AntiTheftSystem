@@ -7,3 +7,4 @@ setting.h
 .venv
 __pycache__
 .env
+devices.json
