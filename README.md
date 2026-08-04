@@ -89,6 +89,24 @@ void loop() {
 pio run -e <デバイス名> -t upload
 ```
 
+### 3.1 ライブラリとして使う場合
+
+このライブラリは、別の PlatformIO プロジェクトから `lib_deps` で追加できます。
+
+```ini
+lib_deps =
+  m5stack/M5Unified@^0.2.17
+  https://github.com/e1q23079/AntiTheftSystem.git
+```
+
+追加後は、次のように利用できます。
+
+```cpp
+#include <AntiTheftSystem.h>
+
+AntiTheftSystem antiTheftSystem(SERVER_URL);
+```
+
 ## 4. 監視システムのセットアップ
 
 ### 4.1 環境構築

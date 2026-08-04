@@ -1,0 +1,14 @@
+{
+    "name": "AntiTheftSystem",
+    "version": "1.0.0",
+    "description": "盗難防止システムのライブラリ",
+    "frameworks": [
+        "arduino"
+    ],
+    "platforms": [
+        "espressif32"
+    ],
+    "build": {
+        "srcDir": "lib/AntiTheftSystem"
+    }
+}
